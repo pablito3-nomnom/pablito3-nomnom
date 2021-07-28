@@ -70,4 +70,47 @@ if game.PlaceId == 7009799230 then
         setclipboard("https://discord.gg/D9xuHyRcWK")
     end)
     
+elseif game.PlaceId == 2580982329 then
+    
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    
+    local Window = Library.CreateLib("Texting Simulator", "Serpent")
+    
+    local MainTab = Window:NewTab("Main")
+        
+    local MainSection = MainTab:NewSection("Main")
+    
+    local AutoTab = Window:NewTab("Auto Farm")
+    
+    local AutoSection = AutoTab:NewSection("Auto Farming")
+    
+    AutoSection:NewToggle("Auto Text", "Auto Send Texts", function(state)
+        if state then
+            
+            local phonething = "Phone";
+            local tabletthing = "Tablet";
+            local ppeater = game:GetService("ReplicatedStorage").Events.SendTexts;
+            local string_1 = "Computer"; 
+            local Target = game:GetService("ReplicatedStorage").Events.SendTexts;
+            getgenv().AutoFarm1 = true
+            while AutoFarm1 do
+                Target:FireServer(tabletthing);
+                ppeater:FireServer(phonething);
+                Target:FireServer(string_1);
+                Target:FireServer("Game");
+                wait()
+            end
+        else
+            getgenv().AutoFarm1 = false
+        end
+    end)
+    
+    MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+        Library:ToggleUI()
+    end)
+    
+    MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
+        setclipboard("https://discord.gg/D9xuHyRcWK")
+    end)
+
 end
