@@ -1,0 +1,73 @@
+if game.PlaceId == 7009799230 then
+
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    
+    local Window = Library.CreateLib("Pressure Wash Simulator", "Serpent")
+    
+    local MainTab = Window:NewTab("Main")
+        
+    local MainSection = MainTab:NewSection("Main")
+    
+    local AutoFarmTab = Window:NewTab("Auto Farm")
+    
+    local AutoFarmSection = AutoFarmTab:NewSection("Auto Farming")
+    
+    local MiscTab = Window:NewTab("Misc")
+    
+    local MiscSection = MiscTab:NewSection("Misc")
+    
+    AutoFarmSection:NewToggle("Auto Clean", "Automatically Cleans (make sure to be in your area)", function(state)
+        if state then
+            getgenv().automoney = true
+            while automoney do
+                local number_1 = 13283061981201;
+                local number_2 = 0;
+                local Target = game:GetService("ReplicatedStorage").Remotes.SurfaceCompleted;
+                Target:FireServer(number_1, number_2);
+    
+                local number_1 = 12995553016663;
+                local number_2 = 0;
+                local Target = game:GetService("ReplicatedStorage").Remotes.SurfaceCompleted;
+                Target:FireServer(number_1, number_2);
+                
+                local number_1 = 12995553016663;
+                local number_2 = 0;
+                local Target = game:GetService("ReplicatedStorage").Remotes.SurfaceCompleted;
+                Target:FireServer(number_1, number_2);
+                
+                wait()
+            end
+                else
+                    getgenv().automoney = false
+        end
+    end)
+    
+    AutoFarmSection:NewToggle("Auto Rebirth", "Automatically Rebirths", function(state)
+        if state then
+            getgenv().AutoRebirth = true
+            while AutoRebirth do
+                local Target = game:GetService("ReplicatedStorage").Remotes.RebirthSignal;
+                Target:FireServer();
+                wait()
+            end
+            else
+                getgenv().AutoRebirth = false
+        end
+    end)
+    
+    MiscSection:NewButton("Infinite Money", "Collect Infinite Money", function()
+                local number_1 = 12995553016663;
+                local number_2 = math.huge;
+                local Target = game:GetService("ReplicatedStorage").Remotes.SurfaceCompleted;
+                Target:FireServer(number_1, number_2);
+    end)
+    
+    MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+        Library:ToggleUI()
+    end)
+    
+    MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
+        setclipboard("https://discord.gg/D9xuHyRcWK")
+    end)
+    
+end
