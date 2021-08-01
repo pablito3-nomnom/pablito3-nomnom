@@ -113,4 +113,119 @@ elseif game.PlaceId == 2580982329 then
         setclipboard("https://discord.gg/D9xuHyRcWK")
     end)
 
+elseif game.PlaceId == 4822852675 then
+
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+    local Window = Library.CreateLib("☀️Typing Simulator 📱", "Serpent")
+
+    local MainTab = Window:NewTab("Main")
+
+    local MainSection = MainTab:NewSection("Main")
+
+    local AutoFarmTab = Window:NewTab("Auto Farm")
+
+    local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm")
+
+    AutoFarmSection:NewToggle("Auto Type", "Automatically Farms Messages", function(state)
+        if state then
+            getgenv().AutoMessage = true
+            while AutoMessage do
+                local string_1 = "Click";
+                local Target = game:GetService("ReplicatedStorage").Remotes.Mines["2245036054"];
+                Target:FireServer(string_1);
+                local string_1 = "Worker";
+                local Target = game:GetService("ReplicatedStorage").Remotes.Mines["2245036054"];
+                Target:FireServer(string_1);
+                Target:FireServer(string_1);
+                Target:FireServer(string_1);
+                wait()
+            end
+            else
+                getgenv().AutoMessage = false
+        end
+    end)
+
+    MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+        Library:ToggleUI()
+    end)
+
+    MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
+        setclipboard("https://discord.gg/D9xuHyRcWK")
+    end)
+
+elseif game.PlaceId == 3101667897 then
+
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+    local Window = Library.CreateLib("Legends Of Speed ⚡", "Serpent")
+
+    local MainTab = Window:NewTab("Main")
+
+    local MainSection = MainTab:NewSection("Main")
+
+    local AutoFarmTab = Window:NewTab("Auto Farm")
+
+    local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm")
+
+    MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+        Library:ToggleUI()
+    end)
+
+    MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
+        setclipboard("https://discord.gg/D9xuHyRcWK")
+    end)
+
+    AutoFarmSection:NewToggle("Auto Steps", "Automatically Farms Steps", function(state)
+        if state then
+            getgenv().AutoFarm = true
+            while AutoFarm do
+                local string_1 = "collectOrb";
+                local string_2 = "Red Orb";
+                local string_3 = "City";
+                local Target = game:GetService("ReplicatedStorage").rEvents.orbEvent;
+                Target:FireServer(string_1, string_2, string_3);
+                wait()
+            end
+            else
+                getgenv().AutoFarm = false
+        end
+    end)
+
+    AutoFarmSection:NewToggle("Auto Rebirth", "Automatically Rebirths when possible.", function(state)
+        if state then
+            getgenv().AutoRebirth = true
+            while AutoRebirth do
+                local string_1 = "rebirthRequest";
+                local Target = game:GetService("ReplicatedStorage").rEvents.rebirthEvent;
+                Target:FireServer(string_1);
+                wait()
+            end
+            else
+                getgenv().AutoRebirth = false
+        end
+    end)
+
+elseif game.PlaceId == 1828509885 then
+
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+    local Window = Library.CreateLib("Egg Farm Simulator", "Serpent")
+    
+    local AutoFarmTab = Window:NewTab("Auto Farm")
+    
+    local AutoFarmsection = AutoFarmTab:NewSection("Auto Farm")
+    
+    AutoFarmsection:NewToggle("Auto Kill Chickens", "Automatically Hits Chickens", function(state)
+        if state then
+            getgenv().AutoSwing = true
+            while AutoSwing do
+                game:GetService("ReplicatedStorage").Events.Weapon:FireServer("self", "219629d5067eddcdce55ed7968e9b53f")
+                wait()
+            end
+            else
+                getgenv().AutoSwing = false
+        end
+    end)
+
 end
