@@ -3,7 +3,7 @@
 wait(1.2)
 game.StarterGui:SetCore("SendNotification", {
 Title = "Thank you for using Impact Hub";
-Text = "made by nil#0202\ndiscord.gg/rMDGpYvSbn";
+Text = "made by null#0202\ndiscord.gg/rMDGpYvSbn";
 Duration = 10;
 })
 
