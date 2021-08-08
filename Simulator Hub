@@ -211,6 +211,10 @@ elseif game.PlaceId == 1828509885 then
     local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
     local Window = Library.CreateLib("Egg Farm Simulator", "Serpent")
+
+    local MainTab = Window:NewTab("Main")
+        
+    local MainSection = MainTab:NewSection("Main")
     
     local AutoFarmTab = Window:NewTab("Auto Farm")
     
@@ -227,5 +231,170 @@ elseif game.PlaceId == 1828509885 then
                 getgenv().AutoSwing = false
         end
     end)
+
+    MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+        Library:ToggleUI()
+    end)
+
+    MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
+        setclipboard("https://discord.gg/D9xuHyRcWK")
+    end)
+
+elseif game.PlaceId == 3652625463 then
+
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+    local Window = Library.CreateLib("💪🏻 Lifting Simulator", "Serpent")
+
+    local MainTab = Window:NewTab("Main")
+
+    local MainSection = MainTab:NewSection("Main")
+
+    local AutoFarmTab = Window:NewTab("Auto Farm")
+
+    local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm")
+
+    AutoFarmSection:NewToggle("Auto Punch", "Automatically farms punches", function(state)
+        if state then
+            getgenv().AutoPunch = true
+            while AutoPunch do
+                local table_1 = {
+                	[1] = 'GainMuscle'
+                };
+                local Target = game:GetService("ReplicatedStorage").RemoteEvent;
+                Target:FireServer(table_1);
+
+                wait()
+            end
+                else
+        getgenv().AutoPunch = false
+        end
+    end)
+
+    AutoFarmSection:NewToggle("Auto Sell", "Automatically sells punches", function(state)
+        if state then
+            getgenv().AutoSell = true
+            while AutoSell do
+
+                local table_1 = {
+                	[1] = 'SellMuscle'
+                };
+                local Target = game:GetService("ReplicatedStorage").RemoteEvent;
+                Target:FireServer(table_1);
+
+                wait()
+            end
+            else
+                getgenv().AutoSell = false
+        end
+    end)
+
+    MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+        Library:ToggleUI()
+    end)
+
+    MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
+        setclipboard("https://discord.gg/D9xuHyRcWK")
+    end)
+
+elseif game.PlaceId == 2619187362 then
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("⚡ Super Power Fighting Simulator", "Serpent")
+
+local MainTab = Window:NewTab("Main")
+    
+local MainSection = MainTab:NewSection("Main")
+
+local AutoFarmTab = Window:NewTab("Auto Farm")
+
+local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm")
+
+AutoFarmSection:NewToggle("Auto Strength", "Automatically farms Strength", function(state)
+    if state then
+        getgenv().AutoStrength = true
+        while AutoStrength do
+            local string_1 = "Strength";
+            local Target = game:GetService("ReplicatedStorage").Events.Train;
+            Target:FireServer(string_1);
+            wait()
+        end
+    else
+        getgenv().AutoStrength = false
+    end
+end)
+
+AutoFarmSection:NewToggle("Auto Endurance", "Automatically farms Endurance", function(state)
+    if state then
+        getgenv().AutoEndurance = true
+        while AutoEndurance do
+            local string_1 = "Endurance";
+            local Target = game:GetService("ReplicatedStorage").Events.Train;
+            Target:FireServer(string_1);
+            wait()
+        end
+    else
+        getgenv().AutoEndurance = false
+    end
+end)
+
+AutoFarmSection:NewToggle("Auto Psychic", "Automatically farms Psychic", function(state)
+    if state then
+        getgenv().AutoPsy = true
+        while AutoPsy do
+            local string_1 = "Psychic";
+            local Target = game:GetService("ReplicatedStorage").Events.Train;
+            Target:FireServer(string_1);
+            wait()
+        end
+    else
+        getgenv().AutoPsy = false
+    end
+end)
+
+
+MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+    Library:ToggleUI()
+end)
+
+MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
+    setclipboard("https://discord.gg/D9xuHyRcWK")
+end)
+
+elseif game.PlaceId == 6440133276 then
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("Shampoo Simulator", "Serpent")
+
+local MainTab = Window:NewTab("Main")
+    
+local MainSection = MainTab:NewSection("Main")
+
+local AutoFarmtab = Window:NewTab("Auto Farm")
+
+local AutoFarmSection = AutoFarmtab:NewSection("Auto Farm")
+
+AutoFarmSection:NewToggle("Auto Shampoo", "Automatically farms Shampoo", function(state)
+    if state then
+        getgenv().AutoShampoo = true
+        while AutoShampoo do
+            local Target = game:GetService("Players")[""..game.Players.LocalPlayer.Name..""].Backpack.Shampoo.Remotes.Events.RequestPoints;
+            Target:FireServer();
+            wait()
+        end
+    else
+        getgenv().AutoShampoo = false
+    end
+end)
+
+MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+    Library:ToggleUI()
+end)
+
+MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
+    setclipboard("https://discord.gg/D9xuHyRcWK")
+end)
 
 end
