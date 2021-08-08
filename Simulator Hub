@@ -118,24 +118,24 @@ elseif game.PlaceId == 4822852675 then
     local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
     local Window = Library.CreateLib("☀️Typing Simulator 📱", "Serpent")
-
+    
     local MainTab = Window:NewTab("Main")
-
+    
     local MainSection = MainTab:NewSection("Main")
-
+    
     local AutoFarmTab = Window:NewTab("Auto Farm")
-
+    
     local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm")
-
+    
     AutoFarmSection:NewToggle("Auto Type", "Automatically Farms Messages", function(state)
         if state then
             getgenv().AutoMessage = true
             while AutoMessage do
                 local string_1 = "Click";
-                local Target = game:GetService("ReplicatedStorage").Remotes.Mines["2245036054"];
+                local Target = game:GetService("ReplicatedStorage").Remotes.Mines[""..game.Players.LocalPlayer.UserId..""];
                 Target:FireServer(string_1);
                 local string_1 = "Worker";
-                local Target = game:GetService("ReplicatedStorage").Remotes.Mines["2245036054"];
+                local Target = game:GetService("ReplicatedStorage").Remotes.Mines[""..game.Players.LocalPlayer.UserId..""];
                 Target:FireServer(string_1);
                 Target:FireServer(string_1);
                 Target:FireServer(string_1);
@@ -145,11 +145,11 @@ elseif game.PlaceId == 4822852675 then
                 getgenv().AutoMessage = false
         end
     end)
-
+    
     MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
         Library:ToggleUI()
     end)
-
+    
     MainSection:NewButton("Copy Discord Invite", "https://discord.gg/D9xuHyRcWK", function()
         setclipboard("https://discord.gg/D9xuHyRcWK")
     end)
