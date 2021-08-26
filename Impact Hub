@@ -32,6 +32,7 @@ if game.PlaceId == 286090429 then
 	local ESPSection = ESPTab:NewSection("ESP Options")
 	
 	CombatSection:NewButton("Silent Aim", "Auto Wallbang and Auto Head Shot Enemys!", function()
+		getgenv().silentaimtoggle1 = true
 		local players = game:GetService("Players")
 		local plr = players.LocalPlayer
 		local mouse = plr:GetMouse()
@@ -71,6 +72,29 @@ if game.PlaceId == 286090429 then
 				return self.FireServer(self, unpack(args))
 			end
 			return namecall(self,...)
+		end
+	end)
+
+	CombatSection:NewButton("Fov Circle", "Does nothing except look cool.", function()
+		local guiservice = game:GetService("GuiService")
+		local mouse = game:GetService("Players").LocalPlayer:GetMouse()
+
+		getgenv().fovcircle = {
+		   FOVRep = true,
+		   FOV = 50
+		}
+
+		local circle = Drawing.new("Circle")
+		  circle.Transparency = 1
+		  circle.Visible = fovcircle["FOVRep"]
+		  circle.Thickness = 0
+		  circle.Color = Color3.fromRGB(255, 0, 0)
+		  circle.NumSides = 120
+		  circle.Radius = (fovcircle["FOV"] * 6) / 2
+		  circle.Filled = false
+		while true do
+		    circle.Position = Vector2.new(mouse.X, mouse.Y + (guiservice.GetGuiInset(guiservice).Y))
+		    wait()
 		end
 	end)
 	
