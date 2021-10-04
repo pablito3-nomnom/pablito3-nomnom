@@ -1,32 +1,3 @@
-local players = game:GetService("Players")
-local plr = players.LocalPlayer
-local mouse = plr:GetMouse()
-local camera = game.Workspace.CurrentCamera
-local teamcheck = true
-
-local function ClosestPlayerToMouse()
-	local target = nil
-	local dist = math.huge
-	for i,v in pairs(players:GetPlayers()) do
-		if v.Name ~= plr.Name then
-			if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") and teamcheck and v.TeamColor ~= plr.TeamColor then
-				local screenpoint = camera:WorldToScreenPoint(v.Character.HumanoidRootPart.Position)
-				local check = (Vector2.new(mouse.X,mouse.Y)-Vector2.new(screenpoint.X,screenpoint.Y)).magnitude
-
-				if check < dist then
-					target  = v
-					dist = check
-				end
-			end
-		end
-	end
-
-	return target 
-end
-
--- (above) i dont remember why i added this, the last time i removed it the script completely broke :(
-
-
 wait(1.2)
 game.StarterGui:SetCore("SendNotification", {
 Title = "Thank you for using Impact Hub";
