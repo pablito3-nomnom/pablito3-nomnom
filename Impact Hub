@@ -788,6 +788,50 @@ a["ReloadTime"] = 0.0001
 a["Bullets"] = 70
 end)
 
+elseif game.placeId == 5490351219 then 
+
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+    local Window = Library.CreateLib("Clicker Madness", "BloodTheme")
+    
+    
+    local MainTab = Window:NewTab("Main")
+    local MainSection = MainTab:NewSection("Main")
+    
+    local AutoFarmTab = Window:NewTab("Auto Farm")
+    local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm")
+    
+    local CreditsTab = Window:NewTab("Credits")
+    local CreditsSection = CreditsTab:NewSection("Credits")
+    
+    MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+		Library:ToggleUI()
+	end)
+	
+	MainSection:NewButton("Copy Discord Invite", "https://discord.gg/6x6ZzcmgWU", function()
+		setclipboard("https://discord.gg/6x6ZzcmgWU")
+	end)
+    
+    AutoFarmSection:NewToggle("Auto Tap", "Auto taps", function(state)
+        if state then
+            getgenv().AutoTap = true
+            while AutoTap do
+                local clickMod = require(game:GetService("Players").LocalPlayer.PlayerScripts.Aero.Controllers.UI.Click)
+                clickMod:Click()
+                wait()
+            end
+        else
+            getgenv().AutoTap = false
+        end
+    end)
+    
+    AutoFarmSection:NewTextBox("Rebirth", "Enter the amount of rebirths you need", function(txt)
+	    game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.RebirthService.BuyRebirths:FireServer(txt)
+    end)
+
+    CreditsSection:NewButton("potatoman_420#0420", "Credits")
+    CreditsSection:NewButton("nil#1342", "Credits")
+
 elseif game.PlaceId == 301549746 then
 -- this is counter blox, for some reason the main script doesn't like to let counter blox work so i had to add it to a new github page and it still doesn't work, if you wanna use counter blox just use the loadstring in the script channel
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/pablito3-nomnom/pablito3-nomnom/main/stuff"))()
