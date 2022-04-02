@@ -100,15 +100,16 @@ CombatSection:NewButton("Aimbot", "Lock onto enemys heads", function()
     end
 
     local UIS = game.UserInputService
+	local RunService = game:GetService("RunService")
     UIS.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton2 then
             getgenv().aimbotthing = true
-            while true do
+			eeeeeee = RunService.RenderStepped:Connect(function()
                 camera.CFrame = CFrame.new(camera.CFrame.Position, ClosestPlayerToMouse().Character.Head.Position)
-                wait()
-                if getgenv().aimbotthing == false then return end
-                wait()
-            end
+				if getgenv().aimbotthing == false then
+					eeeeeee:Disconnect()
+				end
+            end)
         end
     end)
     
