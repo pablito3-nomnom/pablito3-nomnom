@@ -11,162 +11,211 @@ if game.PlaceId == 286090429 then
 
 	local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
-	local Window = Library.CreateLib("Impact Hub - Arsenal", "BloodTheme")
-	
-	local MainTab = Window:NewTab("Main")
-	
-	local MainSection = MainTab:NewSection("Main")
-	
-	local CombatTab = Window:NewTab("Combat")
-	
-	local CombatSection = CombatTab:NewSection("Combat")
-	
-	local LocalPlayerTab = Window:NewTab("Local Player")
-	
-	local LocalPlayerSection = LocalPlayerTab:NewSection("Local Player")
-	
-	local ESPTab = Window:NewTab("ESP")
-	
-	local ESPSection = ESPTab:NewSection("ESP Options")
-	
-	CombatSection:NewButton("Silent Aim", "Auto Wallbang and Auto Head Shot Enemys!", function()
-		local players = game:GetService("Players")
-		local plr = players.LocalPlayer
-		local mouse = plr:GetMouse()
-		local camera = game.Workspace.CurrentCamera
-		local teamcheck = true
-	
-		local function ClosestPlayerToMouse()
-			local target = nil
-			local dist = math.huge
-			for i,v in pairs(players:GetPlayers()) do
-				if v.Name ~= plr.Name then
-					if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") and teamcheck and v.TeamColor ~= plr.TeamColor then
-						local screenpoint = camera:WorldToScreenPoint(v.Character.HumanoidRootPart.Position)
-						local check = (Vector2.new(mouse.X,mouse.Y)-Vector2.new(screenpoint.X,screenpoint.Y)).magnitude
-	
-						if check < dist then
-							target  = v
-							dist = check
-						end
+local Window = Library.CreateLib("Impact Hub - Arsenal", "BloodTheme")
+
+local MainTab = Window:NewTab("Main")
+
+local MainSection = MainTab:NewSection("Main")
+
+local CombatTab = Window:NewTab("Combat")
+
+local CombatSection = CombatTab:NewSection("Combat")
+
+local LocalPlayerTab = Window:NewTab("Local Player")
+
+local LocalPlayerSection = LocalPlayerTab:NewSection("Local Player")
+
+local ESPTab = Window:NewTab("ESP")
+
+local ESPSection = ESPTab:NewSection("ESP Options")
+
+CombatSection:NewButton("Wallbang", "Shoot enemys through walls", function()
+	local players = game:GetService("Players")
+	local plr = players.LocalPlayer
+	local mouse = plr:GetMouse()
+	local camera = game.Workspace.CurrentCamera
+	local teamcheck = true
+
+	local function ClosestPlayerToMouse()
+		local target = nil
+		local dist = math.huge
+		for i,v in pairs(players:GetPlayers()) do
+			if v.Name ~= plr.Name then
+				if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") and teamcheck and v.TeamColor ~= plr.TeamColor then
+					local screenpoint = camera:WorldToScreenPoint(v.Character.HumanoidRootPart.Position)
+					local check = (Vector2.new(mouse.X,mouse.Y)-Vector2.new(screenpoint.X,screenpoint.Y)).magnitude
+
+					if check < dist then
+						target  = v
+						dist = check
 					end
 				end
 			end
-	
-			return target 
 		end
-	
-		local mt = getrawmetatable(game)
-		local namecall = mt.__namecall
-		setreadonly(mt,false)
-	
-		mt.__namecall = function(self,...)
-			local args = {...}
-			local method = getnamecallmethod()
-	
-			if tostring(self) == "HitPart" and method == "FireServer" then
-				args[1] = ClosestPlayerToMouse().Character.Head
-				return self.FireServer(self, unpack(args))
-			end
-			return namecall(self,...)
+
+		return target 
+	end
+
+	local mt = getrawmetatable(game)
+	local namecall = mt.__namecall
+	setreadonly(mt,false)
+
+	mt.__namecall = function(self,...)
+		local args = {...}
+		local method = getnamecallmethod()
+
+		if tostring(self) == "\226\128\139HitPart" and method == "FireServer" then
+		    args[1] = ClosestPlayerToMouse().Character.Head
+			return self.FireServer(self, unpack(args))
 		end
-	end)
+		return namecall(self,...)
+	end
+end)
+
+CombatSection:NewButton("Aimbot", "Lock onto enemys heads", function()
+    local players = game:GetService("Players")
+	local plr = players.LocalPlayer
+	local mouse = plr:GetMouse()
+	local camera = game.Workspace.CurrentCamera
+	local teamcheck = true
 	
-	LocalPlayerSection:NewSlider("WalkSpeed Slider", "WalkSpeed Slider (might reset)", 500, 16, function(s)
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
-	end)
-	
-	LocalPlayerSection:NewSlider("JumpPower Slider", "JumpPower Slider (might reset)", 500, 50, function(a)
-		game.Players.LocalPlayer.Character.Humanoid.JumpPower = a
-	end)
-	
-	ESPSection:NewButton("Name ESP", "Toggles Name ESP On", function()
-			while wait() do
-			local esp_settings = {
-				textsize = 8,
-				color = 220,20,60
-			}
-	
-			local gui = Instance.new("BillboardGui")
-			local esp = Instance.new("TextLabel", gui)
-	
-			gui.Name = "Lightning";
-			gui.ResetOnSpawn = false
-			gui.AlwaysOnTop = true;
-			gui.LightInfluence = 0;
-			gui.Size = UDim2.new(1.75, 0, 1.75, 0);
-			esp.BackgroundColor3 = Color3.fromRGB(220,20,60);
-			esp.Text = ""
-			esp.Size = UDim2.new(0.0001, 0.00001, 0.0001, 0.00001);
-			esp.BorderSizePixel = 4;
-			esp.BorderColor3 = Color3.new(esp_settings.color)
-			esp.BorderSizePixel = 0
-			esp.Font = "GothamSemibold"
-			esp.TextSize = esp_settings.textsize
-			esp.TextColor3 = Color3.fromRGB(esp_settings.color)
-	
-			while wait() do
-				for i,v in pairs (game:GetService("Players"):GetPlayers()) do
-					if v ~= game:GetService("Players").LocalPlayer and v.Character.Head:FindFirstChild("Lightning")==nil and v.TeamColor ~= game:GetService("Players").LocalPlayer.TeamColor then
-						esp.Text = "{"..v.Name.."}"
-						gui:Clone().Parent = v.Character.HumanoidRootPart
+    local function ClosestPlayerToMouse()
+		local target = nil
+		local dist = math.huge
+		for i,v in pairs(players:GetPlayers()) do
+			if v.Name ~= plr.Name then
+				if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") and teamcheck and v.TeamColor ~= plr.TeamColor then
+					local screenpoint = camera:WorldToScreenPoint(v.Character.HumanoidRootPart.Position)
+					local check = (Vector2.new(mouse.X,mouse.Y)-Vector2.new(screenpoint.X,screenpoint.Y)).magnitude
+
+					if check < dist then
+						target  = v
+						dist = check
 					end
 				end
 			end
+		end
+
+		return target 
+    end
+
+    local UIS = game.UserInputService
+    UIS.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton2 then
+            getgenv().aimbotthing = true
+            while true do
+                camera.CFrame = CFrame.new(camera.CFrame.Position, ClosestPlayerToMouse().Character.Head.Position)
+                wait()
+                if getgenv().aimbotthing == false then return end
+                wait()
+            end
+        end
+    end)
+    
+    UIS.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton2 then
+            getgenv().aimbotthing = false
+        end
+    end)
+
+
+end)
+
+LocalPlayerSection:NewSlider("WalkSpeed Slider", "WalkSpeed Slider (might reset)", 500, 16, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+LocalPlayerSection:NewSlider("JumpPower Slider", "JumpPower Slider (might reset)", 500, 50, function(a)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = a
+end)
+
+ESPSection:NewButton("Name ESP", "Toggles Name ESP On", function()
+    	while wait() do
+		local esp_settings = {
+			textsize = 8,
+			color = 220,20,60
+		}
+
+		local gui = Instance.new("BillboardGui")
+		local esp = Instance.new("TextLabel", gui)
+
+		gui.Name = "Lightning";
+		gui.ResetOnSpawn = false
+		gui.AlwaysOnTop = true;
+		gui.LightInfluence = 0;
+		gui.Size = UDim2.new(1.75, 0, 1.75, 0);
+		esp.BackgroundColor3 = Color3.fromRGB(220,20,60);
+		esp.Text = ""
+		esp.Size = UDim2.new(0.0001, 0.00001, 0.0001, 0.00001);
+		esp.BorderSizePixel = 4;
+		esp.BorderColor3 = Color3.new(esp_settings.color)
+		esp.BorderSizePixel = 0
+		esp.Font = "GothamSemibold"
+		esp.TextSize = esp_settings.textsize
+		esp.TextColor3 = Color3.fromRGB(esp_settings.color)
+
+		while wait() do
+			for i,v in pairs (game:GetService("Players"):GetPlayers()) do
+				if v ~= game:GetService("Players").LocalPlayer and v.Character.Head:FindFirstChild("Lightning")==nil and v.TeamColor ~= game:GetService("Players").LocalPlayer.TeamColor then
+					esp.Text = "{"..v.Name.."}"
+					gui:Clone().Parent = v.Character.HumanoidRootPart
+				end
 			end
-	end)
-	
-	ESPSection:NewButton("Chams", "Toggle Chams On", function()
-			getgenv().chamesp = true
-			function CreateSG(name,parent,face)
+		end
+    end
+end)
+
+ESPSection:NewButton("Chams", "Toggle Chams On", function()
+        getgenv().chamesp = true
+        function CreateCham1(teamthingaa, parent,face, color)
 			local SurfaceGui = Instance.new("SurfaceGui",parent)
 			SurfaceGui.Parent = parent
 			SurfaceGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 			SurfaceGui.Face = Enum.NormalId[face]
 			SurfaceGui.LightInfluence = 0
 			SurfaceGui.ResetOnSpawn = false
-			SurfaceGui.Name = name
+			SurfaceGui.Name = "chamthing"
 			SurfaceGui.AlwaysOnTop = true
 			local Frame = Instance.new("Frame",SurfaceGui)
-			Frame.BackgroundColor3 = Color3.fromRGB(220,20,60)
+			Frame.BackgroundColor3 = Color3.fromRGB(color)
 			Frame.Size = UDim2.new(1,0,1,0)
 		end
-	
-		while chamesp do
-			for i,v in pairs (game:GetService("Players"):GetPlayers()) do
-				if v ~= game:GetService("Players").LocalPlayer and v.Character ~= nil and v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("cham") == nil then
-					for i,v in pairs (v.Character:GetChildren()) do
-						if v:IsA("MeshPart") or v.Name == "Head" then
-							CreateSG("cham",v,"Back")
-							CreateSG("cham",v,"Front")
-							CreateSG("cham",v,"Left")
-							CreateSG("cham",v,"Right")
-							CreateSG("cham",v,"Right")
-							CreateSG("cham",v,"Top")
-							CreateSG("cham",v,"Bottom")
+
+	while chamesp do
+		for i,v in pairs (game:GetService("Players"):GetPlayers()) do
+			if v ~= game:GetService("Players").LocalPlayer and v.Character ~= nil and v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("chamthing") == nil then
+				for i,v in pairs (v.Character:GetChildren()) do
+					if v:IsA("MeshPart") or v.Name == "Head" then
+						for j, k in pairs(game:GetService("Players"):GetPlayers()) do
+							local color1 = k.TeamColor.Color
+							CreateCham1(k, v,"Back",  color1)
+							CreateCham1(k, v,"Front", color1)
+							CreateCham1(k, v,"Left",  color1)
+							CreateCham1(k, v,"Right", color1)
+							CreateCham1(k, v,"Right", color1)
+							CreateCham1(k, v,"Top",   color1)
+							CreateCham1(k, v,"Bottom",color1)
 						end
 					end
 				end
 			end
-			wait()
 		end
-	end)
-	
-	MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
-		Library:ToggleUI()
-	end)
-	
-	MainSection:NewButton("Copy Discord Invite", "https://discord.gg/6x6ZzcmgWU", function()
-		setclipboard("https://discord.gg/6x6ZzcmgWU")
-	end)
+		wait(0.5)
+	end
+end)
 
--- ^^ arsenal
+MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+	Library:ToggleUI()
+end)
+
+MainSection:NewButton("Copy Discord Invite", "https://discord.gg/6x6ZzcmgWU", function()
+    setclipboard("https://discord.gg/6x6ZzcmgWU")
+end)
+
 
 elseif game.PlaceId == 142823291 then
 
-	-- i probably have random comments in here i forgot to remove so uhhhhhhhh yea
-
-	local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
 local Window = Library.CreateLib("Murder Mystery 2 - Impact Hub", "BloodTheme")
 
@@ -174,14 +223,6 @@ local MainTab = Window:NewTab("Main")
 
 local MainSection = MainTab:NewSection("Main")
 
---[[ 
-
-	not finished (i have all of the options in a different folder, ill place them in here when they're ready.)
-
-local CombatTab = Window:NewTab("Combat")
-
-local CombatSection = CombatTab:NewSection("Combat")
-]]
 local ESPTab = Window:NewTab("ESP")
 
 local ESPSection = ESPTab:NewSection("ESP")
@@ -327,14 +368,14 @@ local MiscSection = MiscTab:NewSection("Miscellaneous")
 AutoFarmSection:NewToggle("Auto Swing", "Toggle Auto Swing On/Off", function(state)
 if state then
 local mouse = game.Players.LocalPlayer:GetMouse()
-_G.AutoFarm = true
-while _G.AutoFarm == true do
+getgenv().AutoFarm = true
+while getgenv().AutoFarm == true do
 	game:GetService("Players").LocalPlayer.ninjaEvent:FireServer("swingKatana")
 	wait()
 end
 else
-_G.AutoFarm = false
-while _G.AutoFarm == true do
+getgenv().AutoFarm = false
+while getgenv().AutoFarm == true do
 	print("92"..mouse.X)
 	game:GetService("Players").LocalPlayer.ninjaEvent:FireServer("swingKatana")
 	wait()
@@ -344,8 +385,8 @@ end)
 
 AutoFarmSection:NewToggle("Auto Sell", "Toggle Auto Sell On/Off", function(state)
 if state then
-_G.AutoSell = true
-while _G.AutoSell == true do
+getgenv().AutoSell = true
+while getgenv().AutoSell == true do
 	-- dont ask why i did this (i made this when i was starting to get good at lua)
 	game.Players.LocalPlayer.Character:MoveTo(Vector3.new(66.673851, 2.99800324, -39.0891266, -0.978202999, 3.83255561e-09, 0.207650959, -3.99426536e-09, 1, -3.72729225e-08, -0.207650959, -3.72898974e-08, -0.978202999))
 	game.Players.LocalPlayer.Character:MoveTo(Vector3.new(66.673851, 2.99800324, -39.0891266, -0.978202999, 3.83255561e-09, 0.207650959, -3.99426536e-09, 1, -3.72729225e-08, -0.207650959, -3.72898974e-08, -0.978202999))
@@ -361,8 +402,8 @@ while _G.AutoSell == true do
 	wait()
 	end
 else
-_G.AutoSell = false
-while _G.AutoSell == true do
+getgenv().AutoSell = false
+while getgenv().AutoSell == true do
 	game.Players.LocalPlayer.Character:MoveTo(Vector3.new(77.0467529, 87052.1563, 123.681641, 1.2755394e-05, 0.965938866, 0.258770198, -0.99999994, 1.2755394e-05, 1.66893005e-06, -1.66893005e-06, -0.258770198, 0.965938926))
 	wait()
 end
@@ -497,8 +538,8 @@ end)
 
 AutoFarmSection:NewToggle("Auto Farm", "Toggle Auto Farm On/Off", function(state) -- pov: unoptimized
 if state then
-_G.StepFarm = true
-while _G.StepFarm == true do 
+getgenv().StepFarm = true
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "Red Orb"
 	local A_3 = "City"
@@ -507,8 +548,8 @@ while _G.StepFarm == true do
 	wait()
 end
 
-_G.HoopFarm = true
-while _G.HoopFarm == true do 
+getgenv().HoopFarm = true
+while getgenv().HoopFarm == true do 
 	local A_1 = "collectHoop"
 	local A_2 = "Hoop"
 	local A_3 = "City"
@@ -517,8 +558,8 @@ while _G.HoopFarm == true do
 	wait()
 end
 
-_G.StepFarm = true
-while _G.StepFarm == true do 
+getgenv().StepFarm = true
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "Orange Orb"
 	local A_3 = "City"
@@ -527,8 +568,8 @@ while _G.StepFarm == true do
 	wait()
 end
 
-_G.StepFarm = true
-while _G.StepFarm == true do 
+getgenv().StepFarm = true
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "Yellow Orb"
 	local A_3 = "City"
@@ -537,8 +578,8 @@ while _G.StepFarm == true do
 	wait()
 end
 
-_G.StepFarm = true
-while _G.StepFarm == true do 
+getgenv().StepFarm = true
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "Blue Orb"
 	local A_3 = "City"
@@ -547,8 +588,8 @@ while _G.StepFarm == true do
 	wait()
 end
 
-_G.StepFarm = true
-while _G.StepFarm == true do 
+getgenv().StepFarm = true
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "gem"
 	local A_3 = "City"
@@ -558,7 +599,7 @@ while _G.StepFarm == true do
 end
 else
 G.StepFarm = false
-while _G.StepFarm == true do 
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "Red Orb"
 	local A_3 = "City"
@@ -567,8 +608,8 @@ while _G.StepFarm == true do
 	wait()
 end
 
-_G.HoopFarm = false
-while _G.HoopFarm == true do 
+getgenv().HoopFarm = false
+while getgenv().HoopFarm == true do 
 	local A_1 = "collectHoop"
 	local A_2 = "Hoop"
 	local A_3 = "City"
@@ -577,8 +618,8 @@ while _G.HoopFarm == true do
 	wait()
 end
 
-_G.StepFarm = false
-while _G.StepFarm == true do 
+getgenv().StepFarm = false
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "Orange Orb"
 	local A_3 = "City"
@@ -587,8 +628,8 @@ while _G.StepFarm == true do
 	wait()
 end
 
-_G.StepFarm = false
-while _G.StepFarm == true do 
+getgenv().StepFarm = false
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "Yellow Orb"
 	local A_3 = "City"
@@ -597,8 +638,8 @@ while _G.StepFarm == true do
 	wait()
 end
 
-_G.StepFarm = false
-while _G.StepFarm == true do 
+getgenv().StepFarm = false
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "Blue Orb"
 	local A_3 = "City"
@@ -607,8 +648,8 @@ while _G.StepFarm == true do
 	wait()
 end
 
-_G.StepFarm = false
-while _G.StepFarm == true do 
+getgenv().StepFarm = false
+while getgenv().StepFarm == true do 
 	local A_1 = "collectOrb"
 	local A_2 = "gem"
 	local A_3 = "City"
@@ -645,8 +686,8 @@ local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm Toggles")
 
 AutoFarmSection:NewToggle("Auto Farm", "Toggle Auto Farm On/Off", function(state)
 	if state then
-_G.AutoFarm = true
-while _G.AutoFarm == true do
+getgenv().AutoFarm = true
+while getgenv().AutoFarm == true do
 	tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(4, Enum.EasingStyle.Linear)
 	tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(-53.5656891, -17.9999924, -345.506866, 1, 0, 0, 0, 1, 0, 0, 0, 1)})
 
@@ -663,8 +704,8 @@ while _G.AutoFarm == true do
 	wait(60)
 end
 else
-_G.AutoFarm = false
-while _G.AutoFarm == true do
+getgenv().AutoFarm = false
+while getgenv().AutoFarm == true do
 	tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(4, Enum.EasingStyle.Linear)
 	tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(-53.5656891, -17.9999924, -345.506866, 1, 0, 0, 0, 1, 0, 0, 0, 1)})
 
@@ -732,8 +773,8 @@ if state then
 local plr = game.Players.LocalPlayer
 local plrs = game:GetService("Players")
 
-_G.Spam = true
-while _G.Spam == true do
+getgenv().Spam = true
+while getgenv().Spam == true do
 for i, v in pairs(plrs:GetChildren()) do
 if v.UserId == plr.UserId then
 	print'wow thats nice'
@@ -747,8 +788,8 @@ else
 local plr = game.Players.LocalPlayer
 local plrs = game:GetService("Players")
 
-_G.Spam = false
-while _G.Spam == true do
+getgenv().Spam = false
+while getgenv().Spam == true do
 for i, v in pairs(plrs:GetChildren()) do
 if v.UserId == plr.UserId then
 	print'wow thats nice'
