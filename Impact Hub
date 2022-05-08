@@ -667,7 +667,7 @@ elseif game.PlaceId == 537413528 then
 			tween2:Play()
 			wait(20)
 			game.Players.LocalPlayer.Character.Humanoid.Health = -257
-			wait(10)
+			wait(15)
 		end
 		else
 			getgenv().AutoFarm = false
