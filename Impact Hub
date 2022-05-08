@@ -635,67 +635,51 @@ end)
 
 elseif game.PlaceId == 537413528 then
 
-	-- i made this script when i started learning how to use tweenservice
+	local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-
-local Window = Library.CreateLib("Impact Hub - Build A Boat For Treasure", "BloodTheme")
-
-local MainTab = Window:NewTab("Main")
-
-local MainSection = MainTab:NewSection("Main")
-
-local AutoFarmTab = Window:NewTab("Auto Farm")
-
-local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm Toggles")
-
-AutoFarmSection:NewToggle("Auto Farm", "Toggle Auto Farm On/Off", function(state)
-	if state then
-getgenv().AutoFarm = true
-while getgenv().AutoFarm == true do
-	tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(4, Enum.EasingStyle.Linear)
-	tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(-53.5656891, -17.9999924, -345.506866, 1, 0, 0, 0, 1, 0, 0, 0, 1)})
-
-	tween:Play()
-
-	wait(5)
-
-
-	tweenuwu, tweennono = game:GetService("TweenService"), TweenInfo.new(30, Enum.EasingStyle.Linear)
-
-	tweenthing = tweenuwu:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweennono, {CFrame = CFrame.new(-55.7065125, 50.739624, 9492.35645, 0, 0, -1, 0, 1, 0, 1, 0, 0)})
-
-	tweenthing:Play()
-	wait(60)
-end
-else
-getgenv().AutoFarm = false
-while getgenv().AutoFarm == true do
-	tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(4, Enum.EasingStyle.Linear)
-	tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(-53.5656891, -17.9999924, -345.506866, 1, 0, 0, 0, 1, 0, 0, 0, 1)})
-
-	tween:Play()
-
-	wait(5)
-
-
-	tweenuwu, tweennono = game:GetService("TweenService"), TweenInfo.new(30, Enum.EasingStyle.Linear)
-
-	tweenthing = tweenuwu:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweennono, {CFrame = CFrame.new(-55.7065125, 50.739624, 9492.35645, 0, 0, -1, 0, 1, 0, 1, 0, 0)})
-
-	tweenthing:Play()
-	wait(60)
-end
-end
-end)
-
-MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
-Library:ToggleUI()
-end)
-
-MainSection:NewButton("Copy Discord Invite", "https://discord.gg/6x6ZzcmgWU", function()
-setclipboard("https://discord.gg/6x6ZzcmgWU")
-end)
+	local Window = Library.CreateLib("Impact Hub - Build A Boat For Treasure", "BloodTheme")
+	
+	local MainTab = Window:NewTab("Main")
+	
+	local MainSection = MainTab:NewSection("Main")
+	
+	local AutoFarmTab = Window:NewTab("Auto Farm")
+	
+	local AutoFarmSection = AutoFarmTab:NewSection("Auto Farm Toggles")
+	local part = Instance.new("Part")
+	part.Name = "Part"
+	part.Parent = workspace
+	part.Size = Vector3.new(5,0.5,5)
+	part.Anchored = true
+	AutoFarmSection:NewToggle("Auto Farm", "Toggle Auto Farm On/Off", function(state)
+		if state then
+			getgenv().AutoFarm = true
+			while AutoFarm do
+				game:GetService("RunService").Stepped:wait()
+			tween = game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.5, Enum.EasingStyle.Linear), {CFrame = CFrame.new(-7.76918411, 30.89999485, -91.5465393, 0.353208274, -0.222440436, 0.908715725, -7.4505806e-09, 0.971322596, 0.237765685, -0.935544729, -0.0839808136, 0.34307915)})
+	
+			tween2 = game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(13, Enum.EasingStyle.Linear), {CFrame = CFrame.new(-51.5532265, 30.404236, 9470.48242, -0.720382154, -3.67885775e-08, -0.693577349, -6.78245584e-08, 1, 1.74040036e-08, 0.693577349, 5.95791114e-08, -0.720382154)})
+			game:GetService("RunService").RenderStepped:Connect(function()
+				part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,-4,0)
+			end)
+			tween:Play()
+			wait(0.5)
+			tween2:Play()
+			wait(20)
+			game.Players.LocalPlayer.Character.Humanoid.Health = -257
+		end
+		else
+			getgenv().AutoFarm = false
+		end	
+	end)	
+	
+	MainSection:NewKeybind("Toggle UI Keybind", "Add a Toggle UI Keybind", Enum.KeyCode.RightControl, function()
+	Library:ToggleUI()
+	end)
+	
+	MainSection:NewButton("Copy Discord Invite", "https://discord.gg/6x6ZzcmgWU", function()
+	setclipboard("https://discord.gg/6x6ZzcmgWU")
+	end)
 
 elseif game.PlaceId == 155615604 then
 
