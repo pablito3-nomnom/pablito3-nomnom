@@ -634,7 +634,6 @@ game.Players.LocalPlayer.Character.Humanoid.JumpPower = a
 end)
 
 elseif game.PlaceId == 537413528 then
-
 	local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
 	local Window = Library.CreateLib("Impact Hub - Build A Boat For Treasure", "BloodTheme")
@@ -656,21 +655,26 @@ elseif game.PlaceId == 537413528 then
 			getgenv().AutoFarm = true
 			while AutoFarm do
 				game:GetService("RunService").Stepped:wait()
-			tween = game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.5, Enum.EasingStyle.Linear), {CFrame = CFrame.new(-7.76918411, 30.89999485, -91.5465393, 0.353208274, -0.222440436, 0.908715725, -7.4505806e-09, 0.971322596, 0.237765685, -0.935544729, -0.0839808136, 0.34307915)})
-	
-			tween2 = game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(13, Enum.EasingStyle.Linear), {CFrame = CFrame.new(-51.5532265, 30.404236, 9470.48242, -0.720382154, -3.67885775e-08, -0.693577349, -6.78245584e-08, 1, 1.74040036e-08, 0.693577349, 5.95791114e-08, -0.720382154)})
-			game:GetService("RunService").RenderStepped:Connect(function()
-				part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,-4,0)
+			tween = game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.5, Enum.EasingStyle.Linear), {CFrame = CFrame.new(-7.76918411, 50.89999485, -91.5465393, 0.353208274, -0.222440436, 0.908715725, -7.4505806e-09, 0.971322596, 0.237765685, -0.935544729, -0.0839808136, 0.34307915)})
+			tween2 = game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(20, Enum.EasingStyle.Linear), {CFrame = CFrame.new(-51.5532265, 50.404236, 9490.48242, -0.720382154, -3.67885775e-08, -0.693577349, -6.78245584e-08, 1, 1.74040036e-08, 0.693577349, 5.95791114e-08, -0.720382154)})
+			spawn(function()
+				while AutoFarm do
+					part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,-3,0)
+					wait()
+				end
 			end)
 			tween:Play()
 			wait(0.5)
 			tween2:Play()
+			wait(21)
+			wait()
+			tween3 = game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1, Enum.EasingStyle.Linear), {CFrame = CFrame.new(-51.5532265, -420, 9500.48242, -0.720382154, -3.67885775e-08, -0.693577349, -6.78245584e-08, 1, 1.74040036e-08, 0.693577349, 5.95791114e-08, -0.720382154)})
+			tween3:Play()
 			wait(20)
-			game.Players.LocalPlayer.Character.Humanoid.Health = -257
-			wait(15)
 		end
 		else
 			getgenv().AutoFarm = false
+			part.Position = Vector3.new(0,0,0)
 		end	
 	end)	
 	
@@ -681,7 +685,7 @@ elseif game.PlaceId == 537413528 then
 	MainSection:NewButton("Copy Discord Invite", "https://discord.gg/6x6ZzcmgWU", function()
 	setclipboard("https://discord.gg/6x6ZzcmgWU")
 	end)
-
+	
 elseif game.PlaceId == 155615604 then
 
 	-- probably the most poorly optimized game in the script
